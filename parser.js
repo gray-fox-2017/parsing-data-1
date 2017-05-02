@@ -2,17 +2,15 @@
 const fs = require('fs');
 
 class Person {
-  constructor(obj){
-    this.id = obj.id;
-    this.firstName = obj.first_name;
-    this.lastName = obj.last_name;
-    this.email = obj.email;
-    this.phone = obj.phone;
-    this.createdAt = obj.created_at
+  constructor(data){
+    this.id = data[0];
+    this.firstName = data[1];
+    this.lastName = data[2];
+    this.email = data[3];
+    this.phone = data[4];
+    this.createdAt = data[5];
   }
-  stringified(){
-    return `${this.id},${this.firstName},${this.lastName},${this.email},${this.phone},${this.createdAt},`;
-  }
+
 }
 
 class PersonParser {
@@ -23,8 +21,17 @@ class PersonParser {
   readPeople() {
     let arr = [];
     let temp = fs.readFileSync(this._file).toString().split('\n');
-    for(let i=0;i<temp.length;i++){
-      arr.push(temp[i])
+    //console.log(temp);
+    if(temp[temp.length-1]===''){
+      for(let i=0;i<temp.length-1;i++){
+        let personArr = temp[i].split(',');
+        arr.push(new Person(personArr))
+      }
+    } else {
+      for(let i=0;i<temp.length;i++){
+        let personArr = temp[i].split(',');
+        arr.push(new Person(personArr))
+      }
     }
     return arr
   }
@@ -38,27 +45,30 @@ class PersonParser {
     return this._file
   }
 
-  addPerson(obj) {
-    let person = new Person(obj);
-    this._people.push(person.stringified());
+  addPerson(data) {
+    let person = new Person(data);
+    this._people.push(person);
   }
   save(){
-    let temp = fs.writeFileSync(this._file,this._people.join('\n'));
+    //let temp = fs.writeFileSync(this._file,JSON.stringify(this._people));
+    //let temp = fs.writeFileSync(this._file,this._people.stringified());
+    let arr= [];
+    for (var i = 0; i < this._people.length; i++) {
+      let temp =`${this._people[i].id},${this._people[i].firstName},${this._people[i].lastName},${this._people[i].email},${this._people[i].phone},${this._people[i].createdAt}`
+      arr.push(temp)
+    }
+    console.log(arr);
+    let temp = fs.writeFileSync(this._file,arr.join('\n'));
   }
 }
 
 let parser = new PersonParser('people.csv');
 console.log(`There are ${parser.people.size} people in the file '${parser.file}'.`)
-
-let aldy = {
-  id : 201,
-  first_name : 'Aldy',
-  last_name : 'Andika',
-  email : 'aldy.andika@gmail.com',
-  phone : '0809183742',
-  created_at : new Date()
-}
+//console.log(parser._people);
+//console.log(parser.people);
+let aldy = (['201','Aldy','Andika','aldy.andika@gmail.com','0809183742',new Date()])
 parser.addPerson(aldy);
-console.log(`Now, There are ${parser.people.size} people in the file '${parser.file}'.`)
-console.log(parser._people[parser.people.size-1]+'\n'+parser._people[parser.people.size-2]);
+console.log(`There are ${parser.people.size} people in the file '${parser.file}'.`)
+console.log(parser._people[parser._people.length-3],parser._people[parser._people.length-2],parser._people[parser._people.length-1])//,arr[arr.length-1]);
+// console.log(`Now, There are ${parser.people.size} people in the file '${parser.file}'.`)
 parser.save();
