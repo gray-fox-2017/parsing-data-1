@@ -53,7 +53,7 @@ class PersonParser {
   }
 
   objToStr () {
-    let result = ["id,first_name,last_name,email,phone,created_at,asdfasdfasdf"];
+    let result = ["id,first_name,last_name,email,phone,created_at"];
     for (let i = 0; i < this._people.length; i++) {
       let arr = [];
       arr.push(this._people[i].id);
