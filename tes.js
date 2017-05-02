@@ -53,7 +53,6 @@ class PersonParser {
 }
 let personParser = new PersonParser('./people.csv')
 let orang = personParser.addPerson([201,"Andrew","Senewe","asd@gmail.com",081245678945])
-// console.log(personParser.people);
-// console.log(personParser.file);
-// console.log(`There are ${personParser.people.length} people in the file '${personParser.file}'.`)
-personParser.save();
+console.log(personParser.people);
+console.log(personParser.file);
+console.log(`There are ${personParser.people.length} people in the file '${personParser.file}'.`)
