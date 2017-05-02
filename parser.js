@@ -53,25 +53,25 @@ class PersonParser {
   }
 
   objToStr () {
-    let result = ["id,first_name,last_name,email,phone,created_at"];
-    for (let i = 0; i < this.people.length; i++) {
+    let result = ["id,first_name,last_name,email,phone,created_at,asdfasdfasdf"];
+    for (let i = 0; i < this._people.length; i++) {
       let arr = [];
-      arr.push(this.people[i].id);
-      arr.push(this.people[i].firstName);
-      arr.push(this.people[i].lastName);
-      arr.push(this.people[i].email);
-      arr.push(this.people[i].phone);
-      arr.push(this.people[i].createdAt);
+      arr.push(this._people[i].id);
+      arr.push(this._people[i].firstName);
+      arr.push(this._people[i].lastName);
+      arr.push(this._people[i].email);
+      arr.push(this._people[i].phone);
+      arr.push(this._people[i].createdAt);
       result.push(arr.join(","));
     }
 
-    return result.join("\n").toString();
+    return result.join("\n");
 
   }
 
   save() {
     let fs = require('fs')
-    fs.writeFile(this._file, this.csv, 'utf-8', (err) => {
+    fs.writeFile(this._file, this.objToStr(), 'utf-8', (err) => {
       if (err) throw err;
       console.log('It\'s saved!');
     });
@@ -82,9 +82,9 @@ class PersonParser {
 let parser = new PersonParser("people.csv")
 // console.log(parser);
 parser.addPerson(new Person(201, "fajar", "karim", "fajar@karim.com", "20:00:00"));
-// console.log(parser.objToStr());
-console.log(parser.csv);
-// parser.save();
+parser.addPerson(new Person(202, "abdul", "karim", "fajar@karim.com", "20:00:00"));
+// parser.addPerson(new Person(202, "fajar", "karim", "fajar@karim.com", "20:00:00"));
+parser.save();
 
 // console.log(parser.people[200]);
 // console.log(parser.objToStr());
