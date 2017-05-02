@@ -48,11 +48,12 @@ class PersonParser {
 
   addPerson(assignObject) {
     this._people.push(assignObject);
+
+    this.save(assignObject);
   }
 
-  save() {
-    let lastObject = this._people[this._people.length - 1];
-    let string = `${lastObject.id},${lastObject.firstName},${lastObject.lastName},${lastObject.email},${lastObject.phone},${lastObject.createdAt}\n`;
+  save(assignObject) {
+    let string = `${assignObject.id},${assignObject.firstName},${assignObject.lastName},${assignObject.email},${assignObject.phone},${assignObject.createdAt}\n`;
 
     let fs = require("fs");
     fs.appendFileSync(this._file, string, "utf-8")
@@ -65,7 +66,6 @@ let parser = new PersonParser('people.csv')
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
 console.log(parser.people[200])
 //
-parser.addPerson(new Person(201, 'Aulia', 'Hakiem', 'no@bla.com', '1-703-520-4121', '29 July 1993'))
-// parser.save();
-// console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
-// console.log(parser.people[200].email)
+// parser.addPerson(new Person(201, 'Aulia', 'Hakiem', 'no@bla.com', '1-703-520-4121', '29 July 1993'))
+console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
+console.log(parser.people[200].email)
