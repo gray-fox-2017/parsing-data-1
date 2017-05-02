@@ -11,7 +11,7 @@ class Person {
     this.attributes['last_name'] = this._rawData[2];
     this.attributes['email'] = this._rawData[3];
     this.attributes['phone'] = this._rawData[4];
-    this.attributes['created_at'] = new.Date(this._rawData[5]);
+    this.attributes['created_at'] = new Date(this._rawData[5]);
   }
 }
 
@@ -44,7 +44,10 @@ class PersonParser {
   addPerson(peopleObj) {
     // add person to the people database
     this._people.push(peopleObj.attributes);
+    this.save(peopleObj);
+  }
 
+  save (peopleObj){
     // write new person to the csv
     let addToFile = "\n";
     for (var key in peopleObj.attributes){
@@ -54,7 +57,7 @@ class PersonParser {
     var fs = require('fs');
     fs.appendFileSync('people.csv',addToFile);
   }
-  
+
   get people() {
     return this._people;
   }
@@ -64,6 +67,6 @@ let parser = new PersonParser('people.csv')
 
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
 
-parser.addPerson(new Person('201,Shabrina,V. I,email@shabrina.com,1-168-17-17,2012-05-10T03:53:0-07:00'));
+parser.addPerson(new Person('201,Shabrina,V. I,email@shabrina.com,1-168-17-17,2013-05-10T03:53:10-07:00'));
 
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
