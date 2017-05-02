@@ -30,17 +30,16 @@ class PersonParser {
   }
 
   readPeople() {
-    this._people = [];
     this._allData = fs.readFileSync(this._file,'utf8').toString().split('\n');
     let len = this._allData.length;
-    for (let i = 1; i < len; i++) {
+    for (let i = 2; i < len; i++) {
       this._people.push(new Person(this._allData[i]));
     }
 
   }
 
   addPerson(datas) {
-    let len = this._allData.length-1;
+    let len = this._people.length+1;
     let createdate= new Date().toISOString();
 
     let baris = `${len},${datas.firstName},${datas.lastName},${datas.email},${datas.phone},${createdate}`+'\n';
@@ -61,7 +60,7 @@ let parser = new PersonParser('people.csv')
 
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'`);
 
-parser.addPerson({firstName:'Lycaa', lastName: 'Tjan', email: 'ltjan@gmail.com', phone :'12345678901'});
+parser.addPerson({firstName:'Nie', lastName: 'Tjan', email: 'wtjan@gmail.com', phone :'12345678901'});
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'`);
-parser.addPerson({firstName:'Poppy', lastName: 'Sari', email: 'poppymighty@gmail.com', phone :'085813372797'});
+parser.addPerson({firstName:'Siu', lastName: 'Tjan', email: 'stjan@gmail.com', phone :'085813372797'});
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'`);
