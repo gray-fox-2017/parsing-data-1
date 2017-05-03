@@ -32,6 +32,7 @@ class PersonParser {
 
   assignPeople() {
     let arr = [];
+
     for(let i = 1; i < this._raw.length; i++) {
       arr[i - 1] = new Person(this._raw[i][0], this._raw[i][1], this._raw[i][2], this._raw[i][3], this._raw[i][4], this._raw[i][5])
     }
@@ -53,7 +54,7 @@ class PersonParser {
   }
 
   save(assignObject) {
-    let string = `${assignObject.id},${assignObject.firstName},${assignObject.lastName},${assignObject.email},${assignObject.phone},${assignObject.createdAt}\n`;
+    let string = `\n${assignObject.id},${assignObject.firstName},${assignObject.lastName},${assignObject.email},${assignObject.phone},${assignObject.createdAt}`;
 
     let fs = require("fs");
     fs.appendFileSync(this._file, string, "utf-8")
@@ -64,8 +65,8 @@ let parser = new PersonParser('people.csv')
 
 
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
-console.log(parser.people[200])
+console.log(parser.people[0])
 //
-// parser.addPerson(new Person(201, 'Aulia', 'Hakiem', 'no@bla.com', '1-703-520-4121', '29 July 1993'))
+// parser.addPerson(new Person(202, 'Aulia', 'Hakiem', 'no@bla.com', '1-703-520-4121', '29 July 1993'))
 console.log(`There are ${parser.people.length} people in the file '${parser.file}'.`)
 console.log(parser.people[200].email)
