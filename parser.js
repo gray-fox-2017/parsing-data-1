@@ -17,7 +17,7 @@ class PersonParser {
 
   constructor(file) {
     this._file = file
-    this._people = null
+    this._peoples = null
     this._text = null
   }
 
@@ -26,15 +26,15 @@ class PersonParser {
     var filename = this._file;
     this._text = fs.readFileSync(filename, 'utf-8');
     this._baris = this._text.split('\n');
-    this._people = this._baris.map(x => x.split(','))
+    this._peoples = this._baris.map(x => x.split(','))
   }
 
   get people() {
 
     let output = []
 
-    for (let  i=1; i<this._people.length; i++) {
-      var person = new Person(this._people[i])
+    for (let  i=1; i<this._peoples.length; i++) {
+      var person = new Person(this._peoples[i])
       output.push(person);
     }
 
@@ -49,7 +49,7 @@ class PersonParser {
   addPerson(arr) {
     var anakBaru = new Person(arr);
     this._baris.push(arr.join(','));
-    this._people.push(anakBaru);
+    this._peoples.push(anakBaru);
   }
 
   save() {
