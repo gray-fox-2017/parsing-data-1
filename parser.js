@@ -32,7 +32,7 @@ class PersonParser {
 
   assignPeople() {
     let arr = [];
-    for(let i = 1; i < this._raw.length - 1; i++) {
+    for(let i = 1; i < this._raw.length; i++) {
       arr[i - 1] = new Person(this._raw[i][0], this._raw[i][1], this._raw[i][2], this._raw[i][3], this._raw[i][4], this._raw[i][5])
     }
     return arr;
