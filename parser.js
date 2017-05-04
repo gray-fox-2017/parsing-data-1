@@ -3,13 +3,13 @@
 class Person {
   // Look at the above CSV file
   // What attributes should a Person object have?
-  constructor (id, fName, lName, email, phone, createdAt) {
+  constructor (id, fName, lName, email, phone, createdAt=new Date()) {
     this.id = id
     this.firstName = fName;
     this.lastName = lName;
     this.email = email;
     this.phone = phone;
-    this.createdAt = (new Date(createdAt)).toString();
+    this.createdAt = new Date(createdAt);
   }
 
 }
@@ -22,7 +22,6 @@ class PersonParser {
   constructor(file) {
     this._file = file
     this._people = this.personInfo();
-    this.csv = this.objToStr();
   }
 
   get people() {
@@ -45,7 +44,7 @@ class PersonParser {
     }
 
     let people = []
-    for (let i = 0; i < infoArr.length; i++) {
+    for (let i = 0; i < infoArr.length - 1; i++) {
       let person = new Person(infoArr[i][0], infoArr[i][1], infoArr[i][2], infoArr[i][3], infoArr[i][4], infoArr[i][5], infoArr[i][6]);
       people.push(person);
     }
@@ -81,8 +80,7 @@ class PersonParser {
 
 let parser = new PersonParser("people.csv")
 // console.log(parser);
-parser.addPerson(new Person(201, "fajar", "karim", "fajar@karim.com", "20:00:00"));
-parser.addPerson(new Person(202, "abdul", "karim", "fajar@karim.com", "20:00:00"));
+parser.addPerson(new Person(201, "fajar", "karim", "fajar@karim.com", "089-9878-1800"));
 // parser.addPerson(new Person(202, "fajar", "karim", "fajar@karim.com", "20:00:00"));
 parser.save();
 
