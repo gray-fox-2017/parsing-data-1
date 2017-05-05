@@ -31,18 +31,12 @@ class PersonParser {
     const fs = require('fs')
     let data = fs.readFileSync(this._file, 'utf8').split('\n') // read file in into array
     let peopleArr = []
+
     for (let i=0; i<data.length-1; i++){
       let fileArr = data[i].split(',') // split data in line by coma
       data[i] = fileArr // change data with array
-      let obj = {}
       if(i!==0){
-        for (let j=0; j<data[i].length; j++){
-          if (j==5){ // date set
-            obj[data[0][j]] = (new Date(data[i][j])).toString() // convert date
-          } else {
-            obj[data[0][j]] = data[i][j]
-          }
-        }
+        let obj = new Person(fileArr[0], fileArr[1], fileArr[2], fileArr[3], fileArr[4], fileArr[5])
         peopleArr.push(obj) // push object into array
       }
     }
