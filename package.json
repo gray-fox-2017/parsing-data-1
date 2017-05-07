@@ -1,0 +1,23 @@
+{
+  "name": "parsing-data-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parser.js",
+  "dependencies": {
+    "babyparse": "^0.4.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gray-fox-2017/parsing-data-1.git"
+  },
+  "author": "zulfikarannur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gray-fox-2017/parsing-data-1/issues"
+  },
+  "homepage": "https://github.com/gray-fox-2017/parsing-data-1#readme"
+}

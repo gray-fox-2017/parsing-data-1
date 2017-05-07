@@ -15,13 +15,12 @@ class PersonParser {
     constructor(file) {
         this._file = file
         this._people = [];
-        this._fs = require('fs');
+        this.fs = require('fs');
     }
 
     get people() {
-        this._people = [];
         let data = [];
-        let file = this._fs.readFileSync(this._file, 'utf-8').split('\n');
+        let file = this.fs.readFileSync(this._file, 'utf-8').split('\n');
 
         for (let i = 0; i < file.length; i++) {
             data[i] = file[i].split(',');
@@ -38,16 +37,16 @@ class PersonParser {
             });
             this._people.push(person);
         }
-
         return this._people;
     }
 
     get size() {
-        return this._people.length;
+        // return this._people.length;
+        return this.fs.readFileSync(this._file, 'utf-8').split('\n').length - 2;
     }
 
     addPerson(obj) {
-        console.log(this._people.length);
+        // console.log(this._people.length);
         let date = new Date(obj['createdAt']);
         obj['createdAt'] = date;
         this._people.push(obj);
@@ -57,14 +56,11 @@ class PersonParser {
     save() {
         let tempInd = this._people.length - 1;
         let str = `${this._people[tempInd].id},${this._people[tempInd].firstName},${this._people[tempInd].lastName},${this._people[tempInd].email},${this._people[tempInd].phone},${this._people[tempInd].createdAt}\n`;
-        this._fs.appendFileSync('people.csv', str);
+        this.fs.appendFileSync('people.csv', str);
     }
 }
 
 let parser = new PersonParser('people.csv');
-// console.log(parser.people);
-// console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
-// console.log(`${parser.people}`);
 parser.addPerson(new Person({
     id: '201',
     firstName: 'Zulfikar Annur',
@@ -74,5 +70,5 @@ parser.addPerson(new Person({
     createdAt: new Date()
 }));
 parser.save();
-// console.log(parser.people);
-// console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
+console.log(`There are ${parser.size} people in the file '${parser._file}'.`);
+console.log(JSON.stringify(parser._people[parser._people.length - 1]));
