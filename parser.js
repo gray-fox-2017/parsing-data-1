@@ -11,10 +11,10 @@ class Person {
     this._phone = phone;
     this._createAt = createAt;
   }
-  get tambah() {
+  to_string() {
     //let tes = `${this._id},${this._fName},${this._lName},${this._email},${this._phone},${this._createAt}`;
     //console.log("tes ini : "+tes);
-    return  `${this._id},${this._fName},${this._lName},${this._email},${this._phone},${this._createAt}`;
+    return  `${this._id},${this._fName},${this._lName},${this._email},${this._phone},${this._createAt.toISOString()}`;
      //console.log("tes ini adalah id "+`${this._id}`);
   }
 }
@@ -50,7 +50,7 @@ class PersonParser {
     //let tes = new Person('201','Erwin','Ramadhan','erwinwahyuramadhan@gmail.com','0-822-423-61317', new Date())
     //console.log("ini coba tes : "+tes);
     //console.log(tes);
-    this._people.push(obj.tambah)
+    this._people.push(obj.to_string())
     return this._people
   }
 
